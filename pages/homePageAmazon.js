@@ -9,6 +9,7 @@ class AmazonHomePage {
             "ProductTarget": "Batman - A Corte das Corujas",
             "titlePage": "Amazon.com.br | Tudo pra você, de A a Z.",
             "boxResults":`[data-component-type="s-search-result"]`,
+            "TitleResult":'[class="a-size-base-plus a-color-base a-text-normal"]'
         }
     }
 
@@ -45,12 +46,17 @@ class AmazonHomePage {
         return boxResult
     }
 
+    async validateHomePage(){
+        const currentUrl = page.url();
+        expect(currentUrl).toBe('https://www.amazon.com.br/')
+    }
+
     async validateSearchProduct(productName) {
         await this.searchProduct(productName)
         await this.clickSearchButton()
         let boxResult = await this.getBoxsResult()
         
-        expect(boxResult.locator('[class="a-size-base-plus a-color-base a-text-normal"]')).toContainText(productName)
+        expect(boxResult.locator(this.ObjectsPage.TitleResult)).toContainText(productName)
 
     }
 }
