@@ -56,7 +56,14 @@ class AmazonHomePage {
         await this.clickSearchButton()
         let boxResult = await this.getBoxsResult()
         
-        expect(boxResult.locator(this.ObjectsPage.TitleResult)).toContainText(productName)
+        await expect(boxResult.locator(this.ObjectsPage.TitleResult)).toContainText(productName)
+
+    }
+
+    async clickBoxResultAfterSearch(productName){
+        await this.validateSearchProduct(productName)
+        let boxResult = await this.getBoxsResult()
+        await boxResult.locator('[href*="/Batman-Corte-Corujas-Christa-Faust/"]').first().click()
 
     }
 }
